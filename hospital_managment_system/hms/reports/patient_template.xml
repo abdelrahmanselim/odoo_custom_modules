@@ -1,0 +1,99 @@
+
+<odoo>
+    <data>
+        <template id="patient_template">
+            <t t-call="web.html_container"/>
+                            <t t-call="web.external_layout">
+                                 <t t-foreach="docs" t-as="o">
+                              <div class="page">
+                                    <div class="container my-3">
+                                    <div class="row">
+                                    -<div class="col-6">
+                                    <h1 style="color:red;">Patient status record</h1>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    <div class="container my-3">
+                                    <div class="row">
+                                    <div class="col-6">
+                                    <div>
+                                    Name:
+                                    <span t-if="o.first_name" t-field="o.first_name"/>
+                                    </div>
+                                    <div>
+                                    Age:
+                                    <span t-if="o.age" t-field="o.age"/>
+                                    </div>
+                                    <div>
+                                    Department:
+                                    <span t-if="o.dep_id.name" t-field="o.dep_id.name"/>
+                                    </div>
+                                     <div>
+                                    Doctors:
+                                    <t t-as="d" t-foreach="o.doctor_ids">
+                                    <span t-if="d.doctor_ids.first_name" t-field="d.doctor_ids.first_name"/>
+                                    </t>
+                                    </div>
+                                    </div>
+                                    <div class="col-6">
+                                    <div>
+                                    email:
+                                    <span t-if="o.email" t-field="o.email"/>
+                                    </div>
+                                    <div>
+                                    Blood type:
+                                    <span t-if="o.blood_typ" t-field="o.blood_typ"/>
+                                    </div>
+                                    <div>
+                                    PCR:
+                                    <span t-if="o.pcr" t-field="o.pcr"/>
+                                    </div>
+                                    <div>
+                                    State:
+                                    <span t-if="o.state" t-field="o.state"/>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    <div class="container my-3">
+                                    <div class="row">
+                                    <div class="col-6"/>
+                                    <div class="col-6"/>
+                                    </div>
+                                    </div>
+                                    <table class="table">
+                                    <thead>
+                                    <tr>
+                                    <th scope="col">user</th>
+                                    <th scope="col">date</th>
+                                    <th scope="col">description</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <t t-as="log" t-foreach="o.pateint_hsitory">
+                                    <tr>
+                                    <t t-if="log.create_uid.name">
+                                    <td>
+                                    <span t-field="log.create_uid.name"/>
+                                    </td>
+                                    </t>
+                                    <t t-else="">
+                                    <td>Not Found user</td>
+                                    </t>
+                                    <td>
+                                    <span t-field="log.create_date"/>
+                                    </td>
+                                    <td>
+                                    <span t-field="log.descreption"/>
+                                    </td>
+                                    </tr>
+                                    </t>
+                                    </tbody>
+                                    </table>
+                                    </div>
+
+                            </t>
+                            </t>
+        </template>
+    </data>
+</odoo>

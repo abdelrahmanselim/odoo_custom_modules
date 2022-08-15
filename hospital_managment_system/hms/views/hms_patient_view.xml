@@ -1,0 +1,86 @@
+<odoo>
+    <data>
+
+        <record id="hms_patient_tree_view" model="ir.ui.view">
+            <field name="name">hms.patient.tree.view</field>
+            <field name="model">hms.patient</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="first_name"/>
+                    <field name="second_name"/>
+                    <field name="email"/>
+                    <field name="birth_date"/>
+                    <field name="cr_ratio"/>
+                    <field name="pcr"/>
+                    <field name="address"/>
+                    <field name="blood_typ"/>
+                    <field name="department_capicity"/>
+                    <field name="age"/>
+                    <field name="pateint_hsitory">
+                        <tree>
+                            <field name="descreption"/>
+                            <field name="create_uid"/>
+                            <field name="create_date"/>
+                        </tree>
+                    </field>
+                </tree>
+            </field>
+        </record>
+                <record id="hms_patient_form_view" model="ir.ui.view">
+            <field name="name">hms.patient.tree.view</field>
+            <field name="model">hms.patient</field>
+                <field name="arch" type="xml">
+                <form>
+                     <header>
+                        <button name="action_undetermined" type="object" string="undetermined"
+                                class="btn btn-info" attrs="{'invisible':[('state','=','undetermined')]}"/>
+                         <button name="action_good" type="object" string="good"
+                                class="btn btn-info" states="undetermined"
+                                 attrs="{'invisible':[('state','=','good')]}"/>
+                         <button name="action_fair" type="object" string="fair"
+                                class="btn btn-info"/>
+                         <button name="action_serious" type="object" string="serious"
+                                class="btn btn-info"/>
+                         <field name="state" widget="statusbar"
+                               statusbar_visible="undetermined,good,accepted,fair,serious"/>
+                    </header>
+                    <sheet>
+                    <group>
+                        <field name="first_name"/>
+                        <field name="second_name"/>
+                        <field name="birth_date"/>
+                        <field name="pcr"/>
+                        <field name="cr_ratio"  attrs="{'required':[('pcr','!=',False)]}"/>
+                        <field name="address"/>
+                        <field name="blood_typ"/>
+                        <field name="email"/>
+                        <field name="age"/>
+                        <field name="doctor_ids" groups="hms.manager_group" attrs="{'readonly':[('dep_id','=',False)]}">
+                            <tree editable="bottom">
+                                <field name="doctor_id"/>
+                            </tree>
+                        </field>
+                        <field name="dep_id"/>
+                        <field name="pateint_hsitory" attrs="{'invisible':[('age','&lt;',50)]}">
+                            <tree editable="bottom">
+                                <field name="descreption"/>
+                            </tree>
+                        </field>
+
+                    </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="hospital_patient_action" model="ir.actions.act_window" >
+            <field name="name">Patients</field>
+            <field name="res_model">hms.patient</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id= "hospital_root_menu" name="Hospital"/>
+        <menuitem id= "hospital_patient_menu" name="Patient" parent="hospital_root_menu" action="hospital_patient_action"/>
+
+    </data>
+</odoo>

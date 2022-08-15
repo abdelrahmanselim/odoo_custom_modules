@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+        <record id="user_group" model="res.groups">
+            <field name="name">User Group</field>
+        </record>
+         <record id="manager_group" model="res.groups">
+            <field name="name">Manager Group</field>
+             <field name="implied_ids" eval="[(4,ref('user_group'))]"/>
+         </record>
+        <record id="crud_own_patient" model="ir.rule">
+            <field name="name">Crud own patient</field>
+            <field name="model_id" ref="model_hms_patient"/>
+            <field name="domain_force">[('create_uid','=',user.id)]</field>
+            <field name="groups" eval="[(4,ref('user_group'))]"/>
+        </record>
+    </data>
+</odoo>

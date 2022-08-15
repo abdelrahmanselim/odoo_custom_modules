@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+        <record id="related_pateint_id" model="ir.ui.view">
+            <field name="name"> related.pateint.id</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="ref" position="after">
+                    <field name="related_patient_id"/>
+                </field>
+            </field>
+
+        </record>
+        <record id="web_site_list" model="ir.ui.view">
+            <field name="name"> web.site.list</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='country_id']" position="after">
+                    <field name="website"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="tax_id_mand" model ="ir.ui.view">
+            <field name="name"> tax.id.mand</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="vat" position="attributes">
+                    <attribute name="required">True</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+
+</odoo>

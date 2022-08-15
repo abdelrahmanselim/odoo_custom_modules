@@ -1,0 +1,48 @@
+<odoo>
+    <data>
+
+        <record id="iti_category" model="ir.module.category">
+            <field name="name">ITI Category Groups</field>
+            <!--            <field name="sequence">9</field>-->
+        </record>
+
+        <record id="iti_group_user" model="res.groups">
+            <field name="name">ITI User</field>
+            <field name="category_id" ref="iti.iti_category"/>
+        </record>
+
+        <record id="iti_group_admin" model="res.groups">
+            <field name="name">ITI Admin</field>
+            <field name="category_id" ref="iti.iti_category"/>
+            <field name="implied_ids" eval="[(4, ref('iti.iti_group_user'))]"/>
+        </record>
+
+        <!-- See Own Records for group ITI user -->
+        <record id="see_own_record" model="ir.rule">
+            <field name="name">See Own Record</field>
+            <field name="model_id" ref="model_iti_student"/>
+            <field name="domain_force">[('create_uid','=', user.id)]</field>
+            <field name="groups" eval="[(4,ref('iti.iti_group_user'))]"/>
+        </record>
+
+                <!-- See All Records for group ITI Admin -->
+        <record id="see_all_records" model="ir.rule">
+            <field name="name">See All Records</field>
+            <field name="model_id" ref="model_iti_student"/>
+            <field name="domain_force">[(1 ,'=', 1)]</field>
+            <field name="groups" eval="[(4,ref('iti.iti_group_admin'))]"/>
+        </record>
+
+    </data>
+</odoo>
+
+        <!--
+        Many2many, One2many
+
+         line1
+         line2
+         ...
+         ..
+
+
+        -->

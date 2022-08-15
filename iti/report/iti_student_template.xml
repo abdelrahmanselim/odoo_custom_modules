@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <template id="template_iti_student">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">First</th>
+                                    <th scope="col">Second Name</th>
+                                    <th scope="col">Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="counter" t-value="1"/>
+                                <t t-foreach="docs" t-as="student">
+                                    <tr>
+                                        <th scope="row"><span t-out="counter"/></th>
+                                        <t t-if="student.first_name">
+                                            <td><span t-field="student.first_name"/></td>
+                                        </t>
+                                        <t t-else="">
+                                            <td>Not Found First Name</td>
+                                        </t>
+                                        <td><span t-field="student.second_name"/></td>
+                                        <td><span t-field="student.email"/></td>
+                                    </tr>
+                                    <t t-set="counter" t-value="counter+1"/>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>
+
+        <!--
+            Template language , data model on report
+            html page
+
+            <!Doctype html>
+            <html>
+                <head>
+
+                 </head>
+                 <body>
+
+                 </body>
+
+            </html>
+Qweb
+ <t t-foreach="students"  t-as="students">
+
+
+            -->
+
+
+

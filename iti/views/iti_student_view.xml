@@ -1,0 +1,142 @@
+<odoo>
+    <data>
+
+        <!--
+        Type view
+            <tree> , <form>, <kanban>, <search>, <calendar>
+        -->
+        <record id="iti_student_tree_view" model="ir.ui.view">
+            <field name="name">iti.student.tree.view</field>
+            <field name="model">iti.student</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="first_name"/>
+                    <field name="second_name"/>
+                    <field name="birth_date"/>
+                    <field name="age"/>
+                    <field name="gender"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="iti_student_form_view" model="ir.ui.view">
+            <field name="name">iti.student.form.view</field>
+            <field name="model">iti.student</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_second_interview" type="object" string="Second Interview"
+                                class="btn btn-secondary" attrs="{'invisible': [('state', '!=', 'first_interview')]}"/>
+                        <button name="action_accepted" type="object" string="Accepted"
+                                class="btn btn-primary" states="second_interview"/>
+                        <button name="action_rejected" type="object" string="Rejected"
+                                class="btn btn-secondary" states="first_interview,second_interview"/>
+                        <button name="action_first_interview" type="object" string="First Interview"
+                                class="btn btn-secondary" states="rejected"/>
+
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="first_interview,second_interview,accepted"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group string="Student Info">
+                                <field name="first_name"/>
+                                <field name="second_name" string="Student Second Name"
+                                       attrs="{'required': [('first_name', '!=',  False)]}"/>
+                                <field name="email"/>
+                                <field name="birth_date"/>
+                                <field name="age" attrs="{'invisible': [('birth_date', '=', False)]}"/>
+                                <field name="gender" required="1"/>
+                                <field name="address" readonly="True"/>
+                                <field name="image" widget="image"/>
+                                <field name="skill_ids" widget="many2many_tags"/>
+                            </group>
+                            <group string="ITI Info">
+                                <field name="track_id" domain="[('is_open','=',True)]"/>
+                                <field name="track_name"/>
+                                <field name="track_capacity" string="Track Capacity"/>
+                                <field name="accepted"/>
+                                <!--                                <field name="state"/>-->
+                                <field name="salary" groups="iti.iti_group_admin"/>
+                                <field name="tax" groups="iti.iti_group_admin"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="History">
+                                <field name="history"/>
+                            </page>
+                            <page string="CV">
+                                <field name="cv"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <!--    Example    -->
+        <!--        <record id="iti_student_1" model="iti.student">-->
+        <!--            <field name="first_name">Mohammed</field>-->
+        <!--            <field name="second_name">Ashraf</field>-->
+        <!--        </record>-->
+
+        <!--     ir.actions.act_window   -->
+
+
+        <menuitem id="iti_root_menu" name="ITI"/>
+
+
+        <record id="iti_student_action" model="ir.actions.act_window">
+            <field name="name">Students</field>
+            <field name="res_model">iti.student</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="iti_student_menu" name="Student" parent="iti_root_menu" action="iti_student_action"/>
+
+
+    </data>
+</odoo>
+
+        <!--
+
+        readonly, invisible, required
+
+
+        attrs = {
+        'required': [(), ()] ,
+        'readonly': [()] ,
+        'invisible': [()],
+
+        }
+
+        domain == condition  ['&amp;' , ('field_name', 'Op', Value), ('', '', ), ('', '', ) ]
+
+        OP
+         >   &gt;
+         <   &lt;
+         >=  &ge;
+         <=  &le;
+         =
+         !=
+
+        Between two or more domain
+         &   &amp;   and
+         |           or
+
+
+        [(), ()] === ['&amp;' , (), ()]
+
+
+        [('first_name', '!=',  False)]
+
+        if first_name = evalute True , required : True
+
+        if first_name = False , required : False
+
+
+        domain
+           is_open = true ;  [('is_open', '=', True)]
+        -->

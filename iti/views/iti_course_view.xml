@@ -1,0 +1,52 @@
+<odoo>
+
+
+    <record id="iti_course_tree_view" model="ir.ui.view">
+        <field name="name">iti.course.tree.view</field>
+        <field name="model">iti.course</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="is_open"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="iti_course_form_view" model="ir.ui.view">
+        <field name="name">iti.course.form.view</field>
+        <field name="model">iti.course</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="is_open"/>
+                    </group>
+                    <notebook>
+                        <page string="Tracks">
+                            <field name="track_ids" readonly="1">
+                                <tree editable="bottom">
+                                    <field name="track_id"/>
+                                    <field name="hours"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+
+    <record id="iti_course_action" model="ir.actions.act_window">
+        <field name="name">Courses</field>
+        <field name="res_model">iti.course</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="iti_course_menu" name="Course"
+              groups="iti.iti_group_admin"
+              parent="iti_root_menu" action="iti_course_action"/>
+</odoo>

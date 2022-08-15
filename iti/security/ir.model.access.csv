@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_iti_student_user,access.iti.student.user,model_iti_student,iti_group_user,1,1,1,1
+access_iti_track_user,access.iti.track.user,model_iti_track,iti_group_user,1,1,0,0
+access_student_skills_user,access.student.skills.user,model_student_skills,iti_group_user,1,1,1,1
+access_iti_course_user,access.iti.course.user,model_iti_course,iti_group_user,1,0,0,0
+access_track_course_line_user,access.track.course.line.user,model_track_course_line,iti_group_user,1,0,0,0
+
+
+access_iti_track_manager,access.iti.track.manager,model_iti_track,iti_group_admin,1,1,1,1
+access_iti_course_manager,access.iti.course.manager,model_iti_course,iti_group_admin,1,1,1,1
+access_track_course_line_manager,access.track.course.line.manager,model_track_course_line,iti_group_admin,1,1,1,1
